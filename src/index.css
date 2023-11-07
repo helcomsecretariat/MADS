@@ -1,0 +1,856 @@
+@import 'https://js.arcgis.com/4.25/@arcgis/core/assets/esri/themes/light/main.css';
+
+html,
+body,
+#mapDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(50, 50, 50);
+}
+
+#loadingCover {
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 98;
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(./img/loading.gif);
+  opacity: 0.4;
+}
+
+.dragableWidget {
+  width: 21rem;
+  position: absolute;
+  z-index: 9;
+  display: none;
+  /*border: 0.2rem solid #0f2c65;
+  border-radius: 0.2rem;
+  box-shadow: 2px 4px 18px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s, box-shadow 0.2s;*/
+}
+
+/*.dragable.drag {
+  border-color: white;
+  box-shadow: 3px 6px 24px rgba(0, 0, 0, 0.5);
+}*/
+
+.dragableWidget .dragableHeader {
+  cursor: move;
+  z-index: 10;
+  background-color: rgba(0, 73, 127);
+  padding: 5px;
+  font-family: 'Share';
+  color: white;
+}
+
+.dragableWidget .dragableBody {
+  max-height: 21rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: white;
+}
+
+.dragableClose {
+  background-image: url(./img/close-white.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 14px;
+  width: 14px;
+  margin-top: 2px;
+  margin-right: 2px;
+  cursor: pointer;
+  float: right;
+}
+
+.attributeTable {
+  position: absolute;
+  z-index: 9;
+  display: none;
+}
+
+.attributeTableHeader {
+  z-index: 10;
+  background-color: rgba(0, 73, 127);
+  padding: 5px;
+  font-family: 'Share';
+  color: white;
+}
+
+.leftPanelContainer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.headerContainer {
+  background-color: rgba(0, 73, 127);
+  height: 170px;
+}
+
+.showPanelDiv {
+  position: absolute;
+  top: 10px;
+  background-color: rgba(0, 73, 127);
+  background-image: url(./img/expand-navbar.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 10px solid rgba(0, 73, 127);
+  height: 25px;
+  width: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+.hidePanelDiv {
+  background-image: url(./img/collapse-naviagtion-bar-to-left.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 25px;
+  width: 20px;
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 20px;
+  z-index: 100;
+  position: relative;
+}
+
+.logoContainer {
+  height: 80px;
+  position: relative;
+}
+
+.logo {
+  background-image: url(./img/HELCOM-logo-negative.svg);
+  background-repeat: no-repeat;
+  background-position: left center;
+  margin-left: 10px;
+  height: 60px;
+  width: 60px;
+  border: 10px solid rgba(0, 73, 127);
+  cursor: pointer;
+}
+
+.header {
+  font-family: 'Share';
+  margin-left: 90px;
+  color: white;
+  font-size: 2vw;
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+}
+
+.headerLine {
+  color: rgba(102, 146, 178);
+  width: 95%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.panelContainer {
+  background-color: rgb(121, 158, 175);
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.panelHeader {
+  font-size: 0.95vw;
+  font-weight: bold;
+  color: rgb(0, 73, 127);
+  font-family: 'Share';
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.leftPanelTools {
+  height: 50px;
+  margin-left: 20px;
+}
+
+.searchInput {
+  font-size: 1vw;
+  font-style: italic;
+  padding: 8px;
+  border: 1px solid rgba(177, 205, 202);
+  border-radius: 4px;
+  background-color: rgba(102, 146, 178);
+  width: 16vw;
+  color: white;
+  background-image: url(./img/magnifying-glass.png);
+  background-repeat: no-repeat;
+  background-position: top 0.5vw left 0.3vw;
+  padding-left: 2vw;
+}
+
+/*.menuButton {
+  background-image: url(./img/menu.svg);
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 23px;
+  width: 25px;
+  float: right;
+  margin-right: 30px;
+  cursor: pointer;
+}*/
+
+.searchButton {
+  background-image: url(./img/search.svg);
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 1.4vw;
+  width: 1.8vw;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.layerListButton {
+  background-image: url(./img/layer-list.svg);
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 1.4vw;
+  width: 1.8vw;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+.metadataButton {
+  background-image: url(./img/metadata.svg);
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 1.4vw;
+  width: 1.8vw;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.aboutButton {
+  background-image: url(./img/about.svg);
+  background-repeat: no-repeat;
+  background-position: left center;
+  height: 1.4vw;
+  width: 1.8vw;
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.aboutLine {
+  color: rgba(102, 146, 178);
+  width: 100%;
+  margin-bottom: 15px;
+  margin-top: 45px;
+}
+
+.bdfContainer {
+  width: 100%;
+  height: 60px;
+  background-color: rgba(227, 235, 241);
+  text-align: center;
+  border-top: 8px rgba(227, 235, 241) solid;
+  border-bottom: 8px rgba(227, 235, 241) solid;
+}
+
+.bdfLogo {
+  width: 105px;
+  height: 60px;
+  background-image: url(./img/BDF-UE-nobackground.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.helcomLogo {
+  width: 126px;
+  height: 30px;
+  margin-bottom: 15px;
+  margin-left: 10%;
+  background-image: url(./img/HELCOM-horizontal.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.errorMessageContainer {
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+  background-color: white;
+  padding: 10px;
+  font-family: 'Share';
+  color: rgba(227, 137, 137, 0.728);
+  border-left: 10px red solid;
+  display: none;
+}
+
+.errorMessageHeader {
+  margin: 0px 10px 10px 0px;
+  color: black;
+  font-size: 19px;
+  padding-left: 30px;
+  background-image: url(./img/error-cross.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.errorMessageText {
+  margin: 0px 10px 0px 0px;
+  color: gray;
+  font-size: 14px;
+  padding-left: 30px;
+}
+
+.surveyMessageContainer {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  background-color: rgba(0, 73, 127);
+  padding: 10px;
+  font-family: 'Share';
+  color: white;
+}
+
+.surveyLink {
+  cursor: pointer;
+  text-decoration-line: underline;
+  margin-right: 10px;
+}
+
+.widgetPanelContainer {
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  background-color: rgba(0, 73, 127);
+  padding: 10px 0px 10px 20px;
+}
+
+.widgetButton {
+  background-repeat: no-repeat;
+  background-position: left center;
+  margin-right: 20px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.widgetFeatureInfoButton {
+  background-image: url(./img/map-location.svg);
+  height: 1.5vw;
+  width: 0.9vw;
+}
+
+.widgetLayerInfoButton {
+  background-image: url(./img/layer-info.svg);
+  height: 1.5vw;
+  width: 1.5vw;
+}
+
+.widgetLegendButton {
+  background-image: url(./img/legend.svg);
+  height: 1.2vw;
+  width: 1.5vw;
+}
+
+.widgetPrintButton {
+  background-image: url(./img/map-export.svg);
+  height: 1.1vw;
+  width: 1.3vw;
+}
+
+.widgetBasemapsButton {
+  background-image: url(./img/map-gallery.svg);
+  height: 1.2vw;
+  width: 1.2vw;
+}
+
+.menuContainer {
+  position: absolute;
+  width: 200px;
+  color: rgba(0, 73, 127);
+  font-family: 'Share';
+  font-size: 0.85vw;
+  display: none;
+}
+
+.menuTab {
+  background-color: rgba(97, 141, 161);
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 2px solid rgba(0, 73, 127);
+}
+
+.menuTab:hover {
+  background-color: rgba(102, 146, 178);
+}
+
+.width100 {
+  width: 100%;
+  height: 100%;
+}
+
+span.deleteicon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 50%;
+}
+
+span.deleteicon span {
+  position: absolute;
+  display: block;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  background-image: url(./img/tabClose.png);
+  cursor: pointer;
+}
+
+span.deleteicon input {
+  padding-right: 18px;
+  box-sizing: border-box;
+}
+
+.divClass {
+  border: 1px solid salmon;
+  color: blue;
+  width: 50px;
+  height: 50px;
+}
+
+.no_checkbox>i.jstree-checkbox {
+  display: none
+}
+
+
+/*#tabsDiv {
+  min-width: 200px;
+}*/
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border-bottom: solid #ccc 1px;
+  display: inline-block;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  border-top: solid rgba(255, 255, 255, 0) 2px;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 50px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: rgba(231, 244, 249, 1);
+  border-top: solid rgba(81, 132, 212, 0.8) 2px;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  border-top: solid rgba(81, 132, 212, 0.8) 2px;
+  background-color: lightsteelblue;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 12px;
+  -webkit-animation: fadeEffect 2s;
+  animation: fadeEffect 2s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/*.metadataButton {
+  background-image: url(./img/documentIcon16.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  cursor: pointer;
+  float: right;
+}*/
+
+#layerListTooltipDiv {
+  border: 1px solid #00365C;
+  background-color: #fff;
+  position: absolute;
+  padding: 5px;
+  display: none;
+}
+
+.madsLink {
+  color: rgba(0, 73, 127);
+  font-size: 0.75vw;
+  text-decoration: underline;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.madsLink:hover {
+  font-weight: bold;
+}
+
+.labelMessage {
+  margin: 10px;
+  font-size: 0.75vw;
+  color: rgb(0, 73, 127);
+  font-family: 'Share';
+}
+
+.layerInfoLabel {
+  margin: 5px 0px 0px 5px;
+  font-size: 0.95vw;
+  font-weight: bold;
+  color: rgb(0, 73, 127);
+  font-family: 'Share';
+}
+
+.layerInfoLine {
+  color: rgba(102, 146, 178);
+  width: 100%;
+  margin-bottom: 0.4vw;
+  margin-top: 0.4vw;
+}
+
+.layerInfoHeader {
+  margin: 5px 5px 0px 0px;
+  padding-left: 5px;
+  cursor: pointer;
+  font-size: 0.85vw;
+  color: rgb(0, 73, 127);
+  font-family: 'Share';
+  display: inline;
+}
+
+.marginTopRight5 {
+  margin: 5px 5px 0px 0px;
+}
+
+/*.layerInfoHeader:hover {
+  background-color: rgba(231, 244, 249, 1);
+}*/
+
+.layerInfoHeaderClosed {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url(./img/expand-navbar.svg);
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.layerInfoHeaderOpen {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-image: url(./img/expand.svg);
+  background-position: center bottom;
+  width: 12px;
+  height: 10px;
+  display: none;
+  margin-left: 5px;
+}
+
+.layerButtonDown {
+  background-image: url(./img/down16.png);
+  width: 16px;
+  height: 16px;
+  float: right;
+  cursor: pointer;
+}
+
+.layerButtonDown:hover {
+  border: 1px solid rgba(102, 146, 178);
+  ;
+}
+
+.layerButtonUp {
+  background-image: url(./img/up16.png);
+  width: 16px;
+  height: 16px;
+  float: right;
+  cursor: pointer;
+}
+
+.layerButtonUp:hover {
+  border: 1px solid rgba(102, 146, 178);
+  ;
+}
+
+.layerButtonRemove {
+  background-image: url(./img/tabClose.png);
+  width: 16px;
+  height: 16px;
+  float: right;
+  cursor: pointer;
+}
+
+.layerButtonRemove:hover {
+  border: 1px solid rgba(102, 146, 178);
+  ;
+}
+
+.layerInfoToolsContainer {
+  margin: 0.4vw 0px 0.4vw 1vw;
+}
+
+.layerInfoButton {
+  background-repeat: no-repeat;
+  background-position: left center;
+  margin-right: 13px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.layerInfoMetadataButton {
+  background-image: url(./img/metadata.svg);
+  height: 1vw;
+  width: 1.4vw;
+}
+
+.layerInfoDownloadButton {
+  background-image: url(./img/download.svg);
+  height: 0.9vw;
+  width: 1vw;
+}
+
+.layerInfoRestButton {
+  background-image: url(./img/arcGIS-rest.svg);
+  height: 1vw;
+  width: 1.4vw;
+}
+
+.layerInfoUrlButton {
+  background-image: url(./img/link-to-layer.svg);
+  height: 0.8vw;
+  width: 1.5vw;
+}
+
+.layerInfoDescriptionButton {
+  background-image: url(./img/description.svg);
+  height: 1vw;
+  width: 0.9vw;
+}
+
+.layerInfoLegendButton {
+  background-image: url(./img/legend.svg);
+  height: 0.9vw;
+  width: 1.1vw;
+}
+
+.layerInfoTableButton {
+  background-image: url(./img/attribute-table.svg);
+  height: 0.7vw;
+  width: 1.5vw;
+}
+
+.layerInfoQueryButton {
+  background-image: url(./img/query.svg);
+  height: 0.8vw;
+  width: 1.3vw;
+}
+
+.layerInfoRemoveButton {
+  background-image: url(./img/remove.svg);
+  height: 0.9vw;
+  width: 0.8vw;
+}
+
+.layerInfoUpButton {
+  background-image: url(./img/up.svg);
+  height: 0.9vw;
+  width: 0.7vw;
+}
+
+.layerInfoDownButton {
+  background-image: url(./img/down.svg);
+  height: 0.9vw;
+  width: 0.7vw;
+}
+
+.layerInfoContent {
+  margin: 0px 0.7vw 0.7vw 1vw;
+  padding-left: 5px;
+  border: dashed 1px #a89d9d;
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.layerInfoCopyUrl {
+  font-size: 0.75vw;
+  margin-right: 10px;
+  margin-left: 5px;
+  display: inline;
+}
+
+.smallTextMarginLeft {
+  font-size: 0.75vw;
+  margin-left: 5px;
+}
+
+.smallTextBold {
+  font-size: 0.75vw;
+  /*font-weight: bold;*/
+  color: rgb(0, 73, 127);
+  font-family: 'Share';
+}
+
+.bold14 {
+  font-size: 0.85vw;
+  font-weight: bold;
+}
+
+.centeredBold12 {
+  text-align: center;
+  font-size: 0.75vw;
+  font-weight: bold;
+}
+
+.centeredBold14 {
+  text-align: center;
+  font-size: 0.85vw;
+  font-weight: bold;
+}
+
+.featureInfoHeader {
+  font-family: 'Share';
+  color: rgb(0, 73, 127);
+  text-align: center;
+  font-size: 0.85vw;
+  /*font-weight: bold;*/
+  margin-bottom: 10px;
+}
+
+.tableRow {
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
+  display: table;
+  table-layout: fixed;
+  font-size: 0.75vw;
+}
+
+.tableCellCol1 {
+  width: 30%;
+  font-weight: bold;
+  display: table-cell;
+  word-wrap: break-word;
+}
+
+.tableCellCol2 {
+  display: table-cell;
+  word-wrap: break-word;
+}
+
+.selectSmallMargins {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 10px;
+}
+
+.queryArea {
+  width: 95%;
+  resize: none;
+  font-size: 0.75vw;
+  margin-top: 5px;
+}
+
+.redTextMarginRight {
+  margin-right: 5px;
+  color: rgb(128, 0, 0);
+}
+
+.redTextBoldMarginRight {
+  margin-right: 5px;
+  color: rgb(128, 0, 0);
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.marginLeft {
+  margin-left: 10px;
+}
+
+.margin10 {
+  margin: 10px;
+}
+
+.margin40 {
+  margin: 40px;
+}
+
+.marginTopBottom10 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.margin10bold {
+  margin: 10px;
+  font-weight: bold;
+}
+
+.smallText {
+  font-size: 0.75vw;
+}
+
+.smallText {
+  font-size: 0.75vw;
+}
+
+.smallTextJustify {
+  font-size: 0.75vw;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.dashedBorder {
+  border: dashed 1px rgba(0, 73, 127);
+  padding: 5px;
+  margin-bottom: 5px;
+}

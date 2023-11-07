@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.79 19.74">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6692b2;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #6692b2;
+        stroke-miterlimit: 10;
+        stroke-width: 1.48px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <polyline class="cls-2" points="22.05 12.79 22.05 19 .74 19 .74 12.79"/>
+      <g>
+        <g id="SEARCH">
+          <polygon class="cls-1" points="11.5 14.47 16.79 9.12 15.81 8.16 11.49 12.54 6.95 8.16 6 9.13 11.5 14.47"/>
+        </g>
+        <rect class="cls-1" x="10.71" width="1.55" height="12.96"/>
+      </g>
+    </g>
+  </g>
+</svg>
