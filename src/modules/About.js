@@ -87,4 +87,3 @@ export class madsAboutClass {
     )
   }
 }
-//test 3
