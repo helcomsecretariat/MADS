@@ -57,7 +57,7 @@ export class madsWidgetPanelClass {
     const close = this.utils.createHtmlElement(
       'div',
       null,
-      'dragableClose',
+      'smallClose',
       null,
       surveyMessageDiv
     )
@@ -79,13 +79,13 @@ export class madsWidgetPanelClass {
     let top = 6
     let right = 1
     this.createLayerInfoWidget(widgetPanelDiv, top, right, width / 3)
-    top += 2
-    right += 2
+    top += 3
+    right += 4
     this.createFeatureInfoWidget(widgetPanelDiv, top, right, width / 3)
-    top += 2
+    top += 3
     right += 2
     this.createPrintWidget(widgetPanelDiv, top, right)
-    top += 2
+    top += 3
     right += 2
     this.createBasemapsWidget(widgetPanelDiv, top, right)
     this.createLegendWidget(widgetPanelDiv)
